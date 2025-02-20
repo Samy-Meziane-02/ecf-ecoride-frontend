@@ -1,60 +1,53 @@
-document.getElementById("searchForm").addEventListener("submit", function(event) {
-    event.preventDefault();
+// Liste des trajets simulée
+const trajets = [
+    { id: 1, pseudo: "Jean75", photo: "images_ecoride/Jean.jpg", note: 4.5, places: 2, prix: 20, duree: 3, eco: true, date: "2025-03-01", heure: "08:00", vehicule: "Tesla Model 3", energie: "Électrique" },
+    { id: 2, pseudo: "Marie92", photo: "images_ecoride/Marie.jpg", note: 5, places: 1, prix: 15, duree: 2, eco: false, date: "2025-03-02", heure: "10:00", vehicule: "Peugeot 208", energie: "Essence" },
+    { id: 3, pseudo: "Alex91", photo: "images_ecoride/Alex.jpg", note: 3.8, places: 3, prix: 10, duree: 1.5, eco: true, date: "2025-03-03", heure: "12:00", vehicule: "Renault Zoé", energie: "Électrique" }
+];
 
-    let depart = document.getElementById("depart").value;
-    let arrivee = document.getElementById("arrivee").value;
-    let date = document.getElementById("date").value;
-    let resultsContainer = document.getElementById("results");
-    let noResults = document.getElementById("noResults");
+// Fonction pour afficher les trajets
+function afficherTrajets(trajetsAffiches) {
+    const container = document.getElementById("covoiturages-list");
+    container.innerHTML = "";
+    
+    trajetsAffiches.forEach(trajet => {
+        container.innerHTML += `
+            <div class="trajet">
+                <img src="${trajet.photo}" alt="Photo de ${trajet.pseudo}">
+                <h3>${trajet.pseudo} (${trajet.note} ★)</h3>
+                <p>Prix : ${trajet.prix} € | Places : ${trajet.places} | Durée : ${trajet.duree}h</p>
+                <p><strong>Véhicule :</strong> ${trajet.vehicule} (${trajet.energie})</p>
+                <a href="details.html?id=${trajet.id}">Détails</a>
+            </div>
+        `;
+    });
+}
 
-    // Exemple de trajets disponibles (à remplacer par une requête à la base de données)
-    let trajets = [
-        {
-            pseudo: "Alex34",
-            photo: "https://via.placeholder.com/50",
-            note: "⭐ 4.5",
-            places: 2,
-            prix: "10€",
-            date: "2025-02-20",
-            heureDepart: "08:30",
-            heureArrivee: "10:00",
-            eco: true
-        },
-        {
-            pseudo: "MarieEco",
-            photo: "https://via.placeholder.com/50",
-            note: "⭐ 5.0",
-            places: 1,
-            prix: "12€",
-            date: "2025-02-20",
-            heureDepart: "09:00",
-            heureArrivee: "11:30",
-            eco: true
-        }
-    ];
+// Fonction pour appliquer les filtres
+function applyFilters() {
+    let filteredTrajets = trajets;
 
-    // Filtrer les trajets en fonction de la recherche
-    let resultatsFiltres = trajets.filter(trajet => trajet.date === date);
-
-    resultsContainer.innerHTML = "";
-    if (resultatsFiltres.length === 0) {
-        noResults.innerText = "Aucun covoiturage disponible pour cette date.";
-        return;
+    if (document.getElementById("filterEco").checked) {
+        filteredTrajets = filteredTrajets.filter(t => t.eco);
     }
 
-    noResults.innerText = "";
-    resultatsFiltres.forEach(trajet => {
-        let div = document.createElement("div");
-        div.classList.add("result-item");
-        div.innerHTML = `
-            <img src="${trajet.photo}" alt="Photo de ${trajet.pseudo}">
-            <p><strong>${trajet.pseudo}</strong> ${trajet.note}</p>
-            <p>Places restantes : ${trajet.places}</p>
-            <p>Prix : ${trajet.prix}</p>
-            <p>Départ : ${trajet.heureDepart} - Arrivée : ${trajet.heureArrivee}</p>
-            <p>${trajet.eco ? "✅ Voyage écologique" : "❌ Non écologique"}</p>
-            <button onclick="alert('Détails à venir')">Détails</button>
-        `;
-        resultsContainer.appendChild(div);
-    });
-});
+    let maxPrice = document.getElementById("filterPrice").value;
+    if (maxPrice) {
+        filteredTrajets = filteredTrajets.filter(t => t.prix <= maxPrice);
+    }
+
+    let maxDuration = document.getElementById("filterDuration").value;
+    if (maxDuration) {
+        filteredTrajets = filteredTrajets.filter(t => t.duree <= maxDuration);
+    }
+
+    let minRating = document.getElementById("filterRating").value;
+    if (minRating > 0) {
+        filteredTrajets = filteredTrajets.filter(t => t.note >= minRating);
+    }
+
+    afficherTrajets(filteredTrajets);
+}
+
+// Afficher tous les trajets au chargement
+document.addEventListener("DOMContentLoaded", () => afficherTrajets(trajets));

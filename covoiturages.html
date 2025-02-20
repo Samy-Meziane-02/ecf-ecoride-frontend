@@ -3,52 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rechercher un covoiturage - EcoRide</title>
+    <title>Résultats des Covoiturages - EcoRide</title>
     <link rel="stylesheet" href="covoiturages.css">
 </head>
 <body>
 
-    <!-- En-tête -->
     <header>
-        <h1>EcoRide</h1>
+        <h1>Résultats des Covoiturages</h1>
         <nav>
             <ul>
                 <li><a href="ecoride.html">Accueil</a></li>
+                <li><a href="connexion.html">Connextion</a></li>
                 <li><a href="inscription.html">Inscription</a></li>
-                <li><a href="connexion.html">Connexion</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Formulaire de recherche -->
-    <section class="search-container">
-        <h2>Rechercher un covoiturage</h2>
-        <form id="searchForm">
-            <label for="depart">Ville de départ :</label>
-            <input type="text" id="depart" name="depart" required>
-
-            <label for="arrivee">Ville d'arrivée :</label>
-            <input type="text" id="arrivee" name="arrivee" required>
-
-            <label for="date">Date du voyage :</label>
-            <input type="date" id="date" name="date" required>
-
-            <button type="submit">Rechercher</button>
-        </form>
+    <!-- Section des filtres -->
+    <section class="filters">
+        <h2>Filtres</h2>
+        <label>
+            <input type="checkbox" id="filterEco">
+            Afficher uniquement les trajets écologiques
+        </label>
+        <label>
+            Prix maximum (€) : <input type="number" id="filterPrice" min="0">
+        </label>
+        <label>
+            Durée max (h) : <input type="number" id="filterDuration" min="0">
+        </label>
+        <label>
+            Note minimale : 
+            <select id="filterRating">
+                <option value="0">Aucune</option>
+                <option value="3">3★ et plus</option>
+                <option value="4">4★ et plus</option>
+                <option value="5">5★</option>
+            </select>
+        </label>
+        <button onclick="applyFilters()">Appliquer</button>
     </section>
 
-    <!-- Résultats des trajets -->
-    <section class="results-container">
-        <h2>Résultats</h2>
-        <p id="noResults">Veuillez effectuer une recherche pour voir les résultats.</p>
-        <div id="results"></div>
+    <!-- Liste des covoiturages -->
+    <section class="covoiturages" id="covoiturages-list">
+        <!-- Les trajets seront affichés ici via JavaScript -->
     </section>
 
-    <!-- Pied de page -->
     <footer>
-        <p>Contact : <a href="mailto:contact@ecoride.com">contact@ecoride.com</a></p>
-        <p><a href="mentions-legales.html">Mentions Légales</a></p>
+        <div class="footer-container">
+            <p>Contactez-nous : <a href="mailto:contact@ecoride.com">contact@ecoride.com</a></p>
+            <p><a href="mentions-legales.html">Mentions légales</a></p>
+        </div>
     </footer>
+
 
     <script src="covoiturages.js"></script>
 </body>

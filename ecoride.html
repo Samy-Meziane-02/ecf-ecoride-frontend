@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoRide - Covoiturage Écologique</title>
+    <link rel="stylesheet" href="ecoride.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <header>
+        <h1>EcoRide</h1>
+        <nav>
+            <ul>
+                <li><a href="ecoride.html">Accueil</a></li>
+                <li><a href="covoiturages.html">Covoiturages</a></li>
+                <li><a href="connexion.html">Connexion</a></li>
+                <li><a href="inscription.html">Inscription</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Section Présentation -->
+    <section class="presentation">
+        <h2>Voyagez autrement avec EcoRide</h2>
+        <p>Découvrez une solution de covoiturage écologique et économique.</p>
+        <img src="images_ecoride/ecoride.jpg" alt="Image de covoiturage écologique">
+    </section>
+
+    <!-- Formulaire de recherche -->
+    <section class="recherche">
+        <h2>Recherchez un covoiturage</h2>
+        <form id="searchForm">
+            <label for="depart">Adresse de départ :</label>
+            <input type="text" id="depart" name="depart" required>
+
+            <label for="arrivee">Adresse d'arrivée :</label>
+            <input type="text" id="arrivee" name="arrivee" required>
+
+            <label for="date">Date :</label>
+            <input type="date" id="date" name="date" required>
+
+            <button type="submit">Rechercher</button>
+        </form>
+        <div id="resultats"></div>
+    </section>
+
+    <!-- Pied de page -->
+    <footer>
+        <p>Contact : <a href="mailto:contact@ecoride.com">contact@ecoride.com</a></p>
+        <p><a href="mentions-legales.html">Mentions Légales</a></p>
+    </footer>
+
+    <script src="ecoride.js"></script>
+</body>
+</html>
